@@ -1,0 +1,126 @@
+import java.util.Scanner;
+public class Student {
+    private int n;
+    private String[] info = new String[n];
+    boolean flag = true;
+    private String firstname;
+    private String lastname;
+    private String number;
+    private String standing;
+    private String email;
+    private String address;
+    private String city;
+    public void getInfo(int n) {
+        String[] students = new String[n];
+        int i = 0;
+        Scanner input = new Scanner(System.in);
+        String[] classtan = new String[4];
+        classtan[0] = "freshman";
+        classtan[1] = "sophomore";
+        classtan[2] = "junior";
+        classtan[3] = "senior";
+        String[] symbols = new String[2];
+        symbols[0]=".";symbols[1]="@";
+        String[] states = new String[50];
+
+
+        System.out.println("What is the student's name in <First>");
+        firstname = input.nextLine();
+        int len = firstname.length();
+        for (i = 0; i < len; i++) {
+            if (!(Character.isLetter(firstname.charAt(i)))) {
+                System.out.println("Invalid Characters reenter");
+                firstname = input.nextLine();
+                break;
+            }
+        }
+        System.out.println(firstname);
+        System.out.println("What is the student's name in <Last>");
+        lastname = input.nextLine();
+        len = lastname.length();
+        for (i = 0; i < len; i++) {
+            if (!(Character.isLetter(lastname.charAt(i)))) {
+                System.out.println("Invalid Characters");
+                lastname = input.nextLine();
+                break;
+            }
+        }
+        System.out.println("Please enter your peoplesoft ID which should be only numbers and less than or equal to 7 digits");
+        number = input.nextLine();
+        len = number.length();
+        if(len<=7 && len>0){
+            for (i=0;i<len;i++){
+                if(!(Character.isDigit(number.charAt(i)))){
+                    System.out.println("Only digits allowed in this house please reenter");
+                    number = input.nextLine();
+                    break;
+                }
+            }
+        }
+        else{
+            System.out.println("Invalid length please reenter");
+            number = input.nextLine();
+        }
+        System.out.println("What is the class standing: freshman, sophomore, junior, or senior");
+        standing = input.nextLine();
+        int t= 1;
+        do {
+            for (i = 0; i < classtan.length; i++) {
+                if (standing.contains(classtan[i])) {
+                    t = 0;
+                    break;
+                }
+            }
+            if(t ==1 ){
+                System.out.println("Please enter a valid option");
+                standing= input.nextLine();
+            }
+        }
+        while(t ==1 );
+
+
+        System.out.print("Please enter your email id should be of the format <username>@<domain>.<com> or\n" +
+                "<username>@<domain>.<edu> or <username>@<domain>.<org>");
+        email = input.nextLine();
+        t = 1;
+        do {
+            for (i = 0; i < symbols.length; i++) {
+                if (email.contains(symbols[i])) {
+                    t = 0;
+                    break;
+                }
+            }
+            if(t ==1 ){
+                System.out.println("Please reenter the email in the correct format");
+                email= input.nextLine();
+            }
+        }
+        while(t ==1 );
+        System.out.println("Please enter the address with a space separating the number and name");
+        address = input.nextLine();
+        for(i=0;i<address.length();i++){
+            if(!(Character.isDigit(address.charAt(i)))){
+                if(!(Character.isSpaceChar(address.charAt(i)))){
+                    System.out.println("Address is invalid, please reenter");
+                    address = input.nextLine();
+                    break;
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        System.out.println("Please enter the city name");
+        city = input.nextLine();
+        for(i=0;i<city.length();i++){
+            if(!(Character.isLetter(city.charAt(i)))){
+                System.out.println("Invalid input, please reenter");
+                city = input.nextLine();
+                break;
+            }
+        }
+        }
+
+}
+
+
