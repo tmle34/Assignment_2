@@ -10,9 +10,16 @@ public class Student {
     private String email;
     private String address;
     private String city;
-    public void getInfo(int n) {
-        String[] students = new String[n];
+    private String state;
+    private String zip;
+    private static int count;
+    public void getStudents(int a){
+        count = a;
+    }
+    public void getInfo(int n){
+        String[] students = new String[count];
         int i = 0;
+        int tt=0;
         Scanner input = new Scanner(System.in);
         String[] classtan = new String[4];
         classtan[0] = "freshman";
@@ -20,107 +27,192 @@ public class Student {
         classtan[2] = "junior";
         classtan[3] = "senior";
         String[] symbols = new String[2];
-        symbols[0]=".";symbols[1]="@";
+        symbols[0] = ".";
+        symbols[1] = "@";
         String[] states = new String[50];
-
-
-        System.out.println("What is the student's name in <First>");
-        firstname = input.nextLine();
-        int len = firstname.length();
-        for (i = 0; i < len; i++) {
-            if (!(Character.isLetter(firstname.charAt(i)))) {
-                System.out.println("Invalid Characters reenter");
-                firstname = input.nextLine();
-                break;
-            }
-        }
-        System.out.println(firstname);
-        System.out.println("What is the student's name in <Last>");
-        lastname = input.nextLine();
-        len = lastname.length();
-        for (i = 0; i < len; i++) {
-            if (!(Character.isLetter(lastname.charAt(i)))) {
-                System.out.println("Invalid Characters");
-                lastname = input.nextLine();
-                break;
-            }
-        }
-        System.out.println("Please enter your peoplesoft ID which should be only numbers and less than or equal to 7 digits");
-        number = input.nextLine();
-        len = number.length();
-        if(len<=7 && len>0){
-            for (i=0;i<len;i++){
-                if(!(Character.isDigit(number.charAt(i)))){
-                    System.out.println("Only digits allowed in this house please reenter");
-                    number = input.nextLine();
-                    break;
+        String temp = "AK, AL, AR, AZ, CA, CO, CT, DC, DE, FL, GA, HI, IA, ID, IL, IN, KS, KY, LA, MA, MD, ME, MI, MN,\n" +
+                " MO, MS, MT, NC, ND, NE, NH, NJ, NM, NV, NY, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VA, VT,\n" +
+                " WA, WI, WV, WY";
+        states = temp.split(", ");
+        for(tt=0;tt<count;tt++) {
+            System.out.println("What is the student "+tt+1+" name in <First>");
+            firstname = input.nextLine();
+            int j = 0;
+            do {
+                int len = firstname.length();
+                for (i = 0; i < len; i++) {
+                    if (!(Character.isLetter(firstname.charAt(i)))) {
+                        j = 1;
+                        System.out.println("Invalid Characters reenter");
+                        firstname = input.nextLine();
+                        break;
+                    }
+                    j = 0;
                 }
             }
-        }
-        else{
-            System.out.println("Invalid length please reenter");
+            while (j == 1);
+            System.out.println(firstname);
+            System.out.println("What is the student's "+tt+1+" name in <Last>");
+            lastname = input.nextLine();
+            int len = 0;
+            len = lastname.length();
+            j = 1;
+            do {
+                len = lastname.length();
+                for (i = 0; i < len; i++) {
+                    if (!(Character.isLetter(lastname.charAt(i)))) {
+                        j = 1;
+                        System.out.println("Invalid Characters reenter");
+                        lastname = input.nextLine();
+                        break;
+                    }
+                    j = 0;
+                }
+            }
+            while (j == 1);
+            System.out.println("Please enter student "+tt+1+" peoplesoft ID which should be only numbers and less than or equal to 7 digits");
+            j = 1;
             number = input.nextLine();
-        }
-        System.out.println("What is the class standing: freshman, sophomore, junior, or senior");
-        standing = input.nextLine();
-        int t= 1;
-        do {
-            for (i = 0; i < classtan.length; i++) {
-                if (standing.contains(classtan[i])) {
-                    t = 0;
-                    break;
+            do {
+                if (number.length() <= 7 && number.length() > 0) {
+                    for (i = 0; i < number.length(); i++) {
+                        if (!(Character.isDigit(number.charAt(i)))) {
+                            j = 1;
+                            System.out.println("Only digits allowed in this house please reenter");
+                            number = input.nextLine();
+                            break;
+                        }
+                        j = 0;
+                    }
+                } else {
+                    System.out.println("Invalid length please reenter");
+                    number = input.nextLine();
                 }
             }
-            if(t ==1 ){
-                System.out.println("Please enter a valid option");
-                standing= input.nextLine();
-            }
-        }
-        while(t ==1 );
-
-
-        System.out.print("Please enter your email id should be of the format <username>@<domain>.<com> or\n" +
-                "<username>@<domain>.<edu> or <username>@<domain>.<org>");
-        email = input.nextLine();
-        t = 1;
-        do {
-            for (i = 0; i < symbols.length; i++) {
-                if (email.contains(symbols[i])) {
-                    t = 0;
-                    break;
+            while (j == 1);
+            System.out.println("What is the student "+tt+1+" class standing: freshman, sophomore, junior, or senior");
+            standing = input.nextLine();
+            int t = 1;
+            do {
+                for (i = 0; i < classtan.length; i++) {
+                    if (standing.contains(classtan[i])) {
+                        t = 0;
+                        break;
+                    }
+                }
+                if (t == 1) {
+                    System.out.println("Please enter a valid option");
+                    standing = input.nextLine();
                 }
             }
-            if(t ==1 ){
-                System.out.println("Please reenter the email in the correct format");
-                email= input.nextLine();
+            while (t == 1);
+
+
+            System.out.print("Please enter student "+tt+1+" email id should be of the format <username>@<domain>.<com> or\n" +
+                    "<username>@<domain>.<edu> or <username>@<domain>.<org>");
+            email = input.nextLine();
+            t = 1;
+            do {
+                //for (i = 0; i < symbols.length; i++)
+                if (email.contains(symbols[0])) {
+                    if (email.contains(symbols[1])) {
+                        t = 0;
+                        break;
+                    }
+
+                }
+                if (t == 1) {
+                    System.out.println("Please reenter the email in the correct format");
+                    email = input.nextLine();
+                }
             }
-        }
-        while(t ==1 );
-        System.out.println("Please enter the address with a space separating the number and name");
-        address = input.nextLine();
-        for(i=0;i<address.length();i++){
-            if(!(Character.isDigit(address.charAt(i)))){
-                if(!(Character.isSpaceChar(address.charAt(i)))){
+            while (t == 1);
+            System.out.println("Please enter the student "+tt+1+" address with a space separating the number and name");
+            address = input.nextLine();
+            do {
+                j = 0;
+                String[] temp2 = new String[10];
+                temp2 = address.split(" ");
+                if (temp2[1] == null) {
+                    j = 1;
                     System.out.println("Address is invalid, please reenter");
                     address = input.nextLine();
                     break;
-                }
-                else{
-                    break;
-                }
-            }
-        }
-        System.out.println("Please enter the city name");
-        city = input.nextLine();
-        for(i=0;i<city.length();i++){
-            if(!(Character.isLetter(city.charAt(i)))){
-                System.out.println("Invalid input, please reenter");
-                city = input.nextLine();
-                break;
-            }
-        }
-        }
+                } else {
+                    for (i = 0; i < temp2[0].length(); i++) {
+                        if (!(Character.isDigit(temp2[0].charAt(i)))) {
+                            j = 1;
+                            System.out.println("Street number is invalid, please reetner");
+                            address = input.nextLine();
+                            break;
+                        }
 
+                    }
+                }
+            }
+            while (j == 1);
+            System.out.println("Please enter the student "+tt+1+" city name");
+            city = input.nextLine();
+            do {
+                j = 0;
+                for (i = 0; i < city.length(); i++) {
+                    if (!(Character.isLetter(city.charAt(i)))) {
+                        j = 1;
+                        System.out.println("Invalid input, please reenter");
+                        city = input.nextLine();
+                        break;
+                    }
+                }
+            }
+            while (j == 1);
+            System.out.println("Please enter your student "+tt+1+" is abbreviation form. EX:TX");
+            state = input.nextLine();
+            t = 1;
+            do {
+                for (i = 0; i < states.length; i++) {
+                    if (state.contains(states[i])) {
+                        t = 0;
+                        break;
+                    }
+                }
+                if (t == 1) {
+                    System.out.println("Please reenter the state in the correct format");
+                    state = input.nextLine();
+                }
+            }
+            while (t == 1);
+            System.out.println("What is the student "+tt+1+" zip. The zip should be 9 numbers and only numbers");
+            zip = input.nextLine();
+            do {
+                if (zip.length() == 9) {
+                    j = 0;
+                    for (i = 0; i < zip.length(); i++) {
+                        if (!(Character.isDigit(zip.charAt(i)))) {
+                            j = 1;
+                            System.out.println("Only digits allowed in this house please reenter");
+                            zip = input.nextLine();
+                            break;
+                        }
+                    }
+                } else {
+                    j = 1;
+                    System.out.println("Invalid zip length please reenter");
+                    zip = input.nextLine();
+                }
+            }
+            while (j == 1);
+            students[tt]=firstname+"\t"+lastname+"\t"+number+"\t"+standing+"\t"+email+"\t"+address+
+                    "\t"+city+"\t"+state+"\t"+zip;
+
+        }
+        displayInfo(students);
+    }
+    public void displayInfo(String[] students){
+        System.out.println("Students Details, Department\n" +
+                "of ILT");
+        for(int jj=0;jj<count;jj++){
+            System.out.println(students[jj]);
+        }
+        System.out.println("Number of students: "+count);
+    }
 }
-
-
