@@ -1,11 +1,12 @@
 import java.util.Scanner;
-public class Assignment2 {
+public class Assign2 {
     public static void main(String[]args){
         int n;
         System.out.println("How many students are there?");
         Scanner input = new Scanner(System.in);
         n = input.nextInt();
         Student s1 = new Student();
+        s1.getStudents(n);
         s1.getInfo(n);
     }
 }
